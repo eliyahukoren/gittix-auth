@@ -19,7 +19,7 @@ const validators = () => {
 router.post(
   "/api/users/signup",
   validators(),
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
