@@ -1,6 +1,7 @@
 import { json } from "body-parser";
 import express from "express";
 
+import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
@@ -15,9 +16,15 @@ app.use( currentUserRouter );
 app.use( signInRouter );
 app.use( signOutRouter );
 app.use( signUpRouter );
+
+app.all("*", () => {
+  throw new NotFoundError();
+});
+
+// define error handle middleware
 app.use( errorHandler );
 
 app.listen(3000, () => {
-  console.log("listening port 3000.");
+  console.log("Auth listening port 3000.");
 });
 
