@@ -7,7 +7,7 @@ const startUp = async () => {
   }
 
   try {
-    mongoose.set("strictQuery", true);
+    mongoose.set("strictQuery", false);
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
     console.log("Connected to MongoDB.");
   } catch (err) {
