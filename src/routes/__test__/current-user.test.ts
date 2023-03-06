@@ -3,7 +3,6 @@ import { app } from "../../app";
 
 const urlSignUp: string = "/api/users/signup";
 const urlCurrentUser: string = "/api/users/currentuser";
-const BAD_REQUEST = 400;
 const STATUS_OK = 200;
 const STATUS_CREATED = 201;
 
