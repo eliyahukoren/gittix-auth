@@ -26,28 +26,28 @@ const req = {
   },
 };
 
-it("returns a 201 on successful signup", async () => {
+it(`returns a ${STATUS_CREATED} on successful signup`, async () => {
   return request(app)
     .post(url)
     .send(req.validRequest)
     .expect(STATUS_CREATED);
 });
 
-it("returns a 400 with an invalid email", async () => {
+it(`returns a ${BAD_REQUEST} with an invalid email`, async () => {
   return request(app)
     .post(url)
     .send(req.invalidEmail)
     .expect(BAD_REQUEST)
 });
 
-it("returns a 400 with an invalid password", async () => {
+it(`returns a ${BAD_REQUEST} with an invalid password`, async () => {
   return request(app)
     .post(url)
     .send(req.invalidPassword)
     .expect(BAD_REQUEST);
 });
 
-it("returns a 400 with missing email and password", async () => {
+it(`returns a ${BAD_REQUEST} with missing email and password`, async () => {
   await request(app)
     .post(url)
     .send(req.missingPassword)
