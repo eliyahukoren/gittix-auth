@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Password } from '../services/password';
+import { Password } from './../services/password';
 
 // An interface that describe the properties
 // that are required to create a new User
@@ -29,6 +29,15 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  }
+}, {
+  toJSON: {
+    transform(doc, ret){
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+      delete ret.__v;
+    }
   }
 });
 
