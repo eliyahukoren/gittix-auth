@@ -28,6 +28,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: 🎉 Install modules
         run: yarn install
-      - name: 🖥️ Running unit test on client
-        run: yarn test
+      - name: 🖥️ Running unit test
+        run: yarn test:github
       - run: echo "🍏 This job's status is ${{ job.status }}."
