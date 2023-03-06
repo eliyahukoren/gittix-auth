@@ -69,4 +69,11 @@ it("disallows duplicate emails", async () => {
     .post(url)
     .send(req.validRequest)
     .expect(BAD_REQUEST);
+});
+
+it("sets cookie after successful signup", async () => {
+  const response = await request(app).post(url).send(req.validRequest).expect(STATUS_CREATED);
+
+  expect(response.get("Set-Cookie")).toBeDefined();
+
 })
