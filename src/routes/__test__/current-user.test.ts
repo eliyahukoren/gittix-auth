@@ -21,4 +21,13 @@ it('response with details about the current user', async () => {
     .expect(STATUS_OK);
 
   expect(response.body.currentUser.email).toEqual(req.validRequest.email);
+});
+
+it("responds with null if not authenticated", async () => {
+  const response = await request(app)
+    .get(urlCurrentUser)
+    .send()
+    .expect(STATUS_OK);
+
+  expect(response.body.currentUser).toEqual(null);
 })
