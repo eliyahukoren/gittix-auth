@@ -15,15 +15,18 @@ const req = {
 };
 
 it('response with details about the current user', async () => {
-  await request(app)
+  const authResponse = await request(app)
     .post(urlSignUp)
     .send(req.validRequest)
     .expect(STATUS_CREATED);
 
+  const cookie = authResponse.get("Set-Cookie");
+
   const response = await request(app)
     .get(urlCurrentUser)
+    .set("Cookie", cookie)
     .send()
     .expect(STATUS_OK);
 
-  console.log(response.body);
+  expect(response.body.currentUser.email).toEqual(req.validRequest.email);
 })
