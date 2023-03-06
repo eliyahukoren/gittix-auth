@@ -58,3 +58,15 @@ it(`returns a ${BAD_REQUEST} with missing email and password`, async () => {
     .send(req.missingEmail)
     .expect(BAD_REQUEST);
 });
+
+it("disallows duplicate emails", async () => {
+  await request(app)
+    .post(url)
+    .send(req.validRequest)
+    .expect(STATUS_CREATED);
+
+  await request(app)
+    .post(url)
+    .send(req.validRequest)
+    .expect(BAD_REQUEST);
+})
