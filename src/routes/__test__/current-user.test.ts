@@ -1,10 +1,8 @@
 import request from "supertest";
 import { app } from "../../app";
 
-const urlSignUp: string = "/api/users/signup";
 const urlCurrentUser: string = "/api/users/currentuser";
 const STATUS_OK = 200;
-const STATUS_CREATED = 201;
 
 const req = {
   validRequest: {
@@ -14,12 +12,7 @@ const req = {
 };
 
 it('response with details about the current user', async () => {
-  const authResponse = await request(app)
-    .post(urlSignUp)
-    .send(req.validRequest)
-    .expect(STATUS_CREATED);
-
-  const cookie = authResponse.get("Set-Cookie");
+  const cookie = await global.signin();
 
   const response = await request(app)
     .get(urlCurrentUser)
