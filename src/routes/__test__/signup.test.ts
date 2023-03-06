@@ -5,44 +5,56 @@ const url: string = "/api/users/signup";
 const BAD_REQUEST = 400;
 const STATUS_CREATED = 201;
 
+const req = {
+  validRequest: {
+    email: "test@test.com",
+    password: "password",
+  },
+  invalidEmail: {
+    email: "invalidemail",
+    password: "password",
+  },
+  invalidPassword: {
+    email: "test@test.com",
+    password: "p",
+  },
+  missingPassword: {
+    email: "test@test.com",
+  },
+  missingEmail: {
+    password: "password",
+  },
+};
+
 it("returns a 201 on successful signup", async () => {
   return request(app)
     .post(url)
-    .send({
-      email: "test@test.com",
-      password: "password"
-    })
-    .expect(201);
+    .send(req.validRequest)
+    .expect(STATUS_CREATED);
 });
 
 it("returns a 400 with an invalid email", async () => {
   return request(app)
     .post(url)
-    .send({
-      email: "invalidemail",
-      password: "password"
-    })
-    .expect(400)
+    .send(req.invalidEmail)
+    .expect(BAD_REQUEST)
 });
 
 it("returns a 400 with an invalid password", async () => {
   return request(app)
     .post(url)
-    .send({
-      email: "test@test.com",
-      password: "pas",
-    })
-    .expect(400);
+    .send(req.invalidPassword)
+    .expect(BAD_REQUEST);
 });
 
 it("returns a 400 with missing email and password", async () => {
   await request(app)
     .post(url)
-    .send({ email: "test@test.com"})
-    .expect(400);
+    .send(req.missingPassword)
+    .expect(BAD_REQUEST);
 
   await request(app)
     .post(url)
-    .send({ password: "password" })
-    .expect(400);
+    .send(req.missingEmail)
+    .expect(BAD_REQUEST);
 });
