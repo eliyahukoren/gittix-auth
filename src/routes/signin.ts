@@ -1,8 +1,11 @@
+import {
+  BadRequestError,
+  validateBody,
+  validateRequest
+} from "@tickets-ek/common";
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { BadRequestError } from "../errors/bad-request-error";
-import { validateBody } from "../middlewares/validate-body";
-import { validateRequest } from "../middlewares/validate-request";
+
 import { User } from "../models/users";
 import { Password } from "../services/password";
 
